@@ -7,7 +7,8 @@ class Environment(object):
     '''
     def __init__(self, env_idx, cube_coords=None):
         self.radius = 0.05
-        obstacles = []    
+        obstacles = []
+        cubes_obstacles = []    
         # env_idx = 0 is obstacle free     
         if env_idx == 1:
             self.radius = 0.05
@@ -25,10 +26,10 @@ class Environment(object):
             self.box(x=0, y=-0.73, dx=0.24, dy=0.24, dz=0.12, obstacles=obstacles, skip=['z', '-z'])
             if cube_coords is not None:
                  for cube in cube_coords:
-                      obstacles.append(cube)
-            
+                      cubes_obstacles.append(cube)            
             
         self.obstacles = np.array(obstacles)
+        self.cubes_obstacles = np.array(cubes_obstacles)
     
     def sphere_num(self, min_coord, max_cord):
         '''

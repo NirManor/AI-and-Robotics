@@ -15,7 +15,7 @@ class Visualize_UR(object):
         self.transform = transform
         self.bb = bb
         plt.ion()
-        plt.show()
+        plt.show()                
     
     def plot_links(self,end_efctors):
         for link_edge in end_efctors:
@@ -33,6 +33,7 @@ class Visualize_UR(object):
         self.ax.plot([0,0.5],[0,0],[0,0],c='red')
         self.ax.plot([0,0],[0,0.5],[0,0],c='green')
         self.ax.plot([0,0],[0,0],[0,0.5],c='blue')
+        self.draw_square()
         self.draw_obstacles()
         self.fig.canvas.flush_events()
 
@@ -46,6 +47,13 @@ class Visualize_UR(object):
             y = np.sin(u) * np.sin(v) * self.env.radius + sphere[1]
             z = np.cos(v) * self.env.radius + sphere[2]
             self.ax.plot_surface(x, y, z, color='red',alpha=0.5)
+
+        u, v = np.mgrid[0:2 * np.pi:10j, 0:np.pi:10j]
+        for sphere in self.env.cubes_obstacles:
+            x = np.cos(u) * np.sin(v) * self.env.radius + sphere[0]
+            y = np.sin(u) * np.sin(v) * self.env.radius + sphere[1]
+            z = np.cos(v) * self.env.radius + sphere[2]
+            self.ax.plot_surface(x, y, z, color='orange',alpha=0.5)
             
         
     def draw_spheres(self, global_sphere_coords, track_end_effector=False):
@@ -60,14 +68,14 @@ class Visualize_UR(object):
                 z = np.cos(v) * self.sphere_radius[frame] + sphere_coords[2]
                 self.ax.plot_surface(x, y, z, color=self.colors[frame], alpha=0.3) 
         if track_end_effector:
-            self.end_effector_pos =np.vstack((self.end_effector_pos, global_sphere_coords['wrist_3_link'][-1]))
-            self.ax.scatter(self.end_effector_pos[:,0], self.end_effector_pos[:,1], self.end_effector_pos[:,2])
+            self.end_effector_pos = np.vstack((self.end_effector_pos, global_sphere_coords['wrist_3_link'][-1]))
+            self.ax.scatter(self.end_effector_pos[:,0], self.end_effector_pos[:,1], self.end_effector_pos[:,2])        
     
-    
-    def show_path(self, path, sleep_time=0.02):
+    def show_path(self, path, sleep_time=0.01):
         '''
         Plots the path
-        '''
+        '''        
+
         confs_num = len(path)-1
         resolution = 5*np.pi / 180
         for i in range(confs_num):
@@ -77,15 +85,15 @@ class Visualize_UR(object):
                 confs_to_plot = np.linspace(start=path[i], stop=path[i+1], num=nums, endpoint=True)
             else:
                 confs_to_plot = np.linspace(start=path[i], stop=path[i+1], num=nums, endpoint=False)
+            
             for conf in confs_to_plot:
                 global_sphere_coords = self.transform.conf2sphere_coords(conf)
                 self.draw_spheres(global_sphere_coords,  track_end_effector=True)
                 self.show()
                 time.sleep(sleep_time)
-                self.ax.axes.clear()
+                self.ax.axes.clear()                
 
-
-    def draw_squre(self):
+    def draw_square(self):
         self.ax.plot([0.05, -0.34,-0.34,0.05,0.05],[-0.19, -0.19,-0.55,-0.55,-0.19])
     
     def show_conf(self, conf:np.array):
@@ -94,7 +102,7 @@ class Visualize_UR(object):
         '''
         global_sphere_coords = self.transform.conf2sphere_coords(conf)
         self.draw_spheres(global_sphere_coords)
-        self.draw_squre()
+        self.draw_square()
         plt.ioff()
         self.show()
         plt.show()
