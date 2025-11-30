@@ -1,28 +1,19 @@
-# AI and Robotics - Motion Planning for Robotic Manipulators
+# AI and Robotics - From Simulation to Real-World Robot Control
 
-Complete implementations of motion planning algorithms for the UR5e collaborative robotic arm, covering kinematics, collision detection, and advanced path planning techniques.
+**Course Number:** 236630 | **Technion** | **Winter 2023** | **Instructor:** Prof. Erez Karpas
 
-## Course Information
+Complete end-to-end implementations of motion planning for the **UR5e collaborative robotic arm**, spanning kinematics, collision detection, sampling-based path planning (RRT, RRT*), task-space trajectory planning, and **real-world hardware validation**. Demonstrates the critical sim-to-real gap and how to bridge it through careful algorithm design and experimental validation.
 
-- **Course Number:** 236630
-- **Course Name:** AI and Robotics
-- **Institution:** Technion - Israel Institute of Technology
-- **Faculty:** Computer Science
-- **Semester:** Winter 2023
-- **Language:** Python 3
+## What You Can Claim After This Course
 
----
-
-## Repository Overview
-
-This repository contains practical implementations of motion planning for industrial robotic arms with a focus on:
-- Forward and inverse kinematics for 6-DOF manipulators
-- Collision detection in 3D workspaces
-- Sampling-based motion planning algorithms (RRT, RRT*)
-- Task-space planning and path optimization
-- Real-world robotic manipulation challenges
-
-All implementations use the **UR5e** collaborative robot and emphasize practical application of planning algorithms to real robot constraints.
+- **Implement forward kinematics** for 6-DOF serial manipulators using Denavit-Hartenberg (D-H) parameters and homogeneous transformations
+- **Solve inverse kinematics** numerically for arbitrary end-effector poses; understand multiple solution branches and configuration selection
+- **Design collision detection** using sphere-based approximations with false-positive/negative tradeoffs; optimize sphere placement for accuracy vs. computational cost
+- **Plan collision-free manipulation trajectories** in high-dimensional configuration space using sampling-based methods (RRT, RRT*)
+- **Validate algorithms in simulation** (ROS, CoppeliaSim) before real hardware deployment; characterize sim-to-real transfer
+- **Implement task-space planning** for complex trajectories (bead maze path following, object manipulation with constraints)
+- **Minimize Fréchet distance** between desired and executed trajectories; apply bottleneck shortest path for trajectory following
+- **Integrate perception, planning, and control** in a real robotic system; debug hardware failures and devise recovery strategies
 
 ---
 
@@ -386,12 +377,44 @@ AI-and-Robotics/
 
 ---
 
+## How This Connects to Your Target Roles
+
+### Autonomous Driving & Perception-to-Control
+- **Kinematics & Control Loop:** Real-time forward kinematics (every 10ms) for vehicle trajectory tracking mirrors robotic arm control—understanding D-H parameters and homogeneous transformations is critical for coordinating multiple actuators
+- **Collision Detection at Scale:** Your sphere-based collision approximation with configurable inflation directly applies to vehicle safety bubbles—compute when vehicle can safely occupy a space given road geometry
+- **Trajectory Following:** Minimizing Fréchet distance (bead maze task) is identical to vehicle lane-keeping—how close can you stay to the centerline given kinematic constraints?
+- **Real-time Validation:** Sim-to-real gap experience (what works in ROS doesn't always work on UR5e) is critical for autonomous vehicles where field validation replaces extensive simulation
+
+### Robotics & Manipulation
+- **6-DOF Arm Mastery:** Full pipeline from sensing (where should I grasp?) through planning (how do I avoid obstacles?) to execution (apply computed torques) mirrors production robotics
+- **Constraint-Aware Planning:** Bead maze with Fréchet distance minimization teaches how to handle underspecified goals—you want end-effector near path, but multiple configurations achieve this; pick the one that's safest/fastest
+- **Multi-Objective Optimization:** Complex motion planning tasks balance multiple objectives (path cost, success probability, smoothness, task completion time)—your parameter tuning experience directly applies
+- **Hardware Debugging:** Real robot experience teaches you why theoretical guarantees fail (actuator latency, joint elasticity, grasper hysteresis) and how to design robust controllers
+
+### Industrial Automation & Production Systems
+- **Real-Time Constraints:** UR5e planning within 100ms per move teaches you computational budgets for production systems—RRT* converges better but sometimes you need RRT's 10ms planning time
+- **Sphere-Based Safety Model:** Industry standard for human-robot collaboration—your inflation factor analysis (1.0 to 1.8) directly applies to setting safe standoff distances for human workers
+- **Grasping & Grasp Stability:** Understand grasp quality, load-carrying capacity, gripper wear—production systems care about reliability (which gripper orientation is most stable?), not just feasibility
+- **Multi-Robot Coordination:** Complex tasks (cube rearrangement, bead maze) demonstrate how single-robot planning composes into multi-robot systems—essential for factory floor automation
+
+---
+
+## Portfolio Highlights
+
+- **Real Hardware Validation:** Unlike most AI courses, AI & Robotics includes actual UR5e robot testing with high-resolution motion capture. This is rare and valuable for robotics interviews.
+- **Progression from Theory to Practice:** Projects build systematically from kinematics (Project 1) → advanced planning (Project 2-3) → challenging real-world task (Bead Maze).
+- **Sim-to-Real Bridge:** Demonstrates understanding of the critical gap between simulation and real hardware—a skill that separates academics from production roboticists.
+- **Problem-Solving Under Constraints:** Bead maze task requires creativity—end-effector must follow a complex 3D path while avoiding self-collisions and maintaining gripper orientation. This is the kind of open-ended challenge encountered in real products.
+
+---
+
 ## License
 
-Educational use. Course materials property of Technion.
+Educational use. Course materials property of Technion - Israel Institute of Technology.
 
 ---
 
 **Repository:** https://github.com/NirManor/AI-and-Robotics
 **Last Updated:** 2025
-**Status:** Complete implementations with comprehensive documentation
+**Status:** Complete implementations with real-world validation
+**Portfolio Value:** Demonstrates complete robotics pipeline from kinematics through planning to real hardware control and debugging
