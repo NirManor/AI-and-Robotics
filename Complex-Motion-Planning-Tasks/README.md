@@ -63,67 +63,37 @@ The solution employs an advanced motion planning approach using RRT* (Rapidly-Ex
 
 ---
 
-## Letter Formation Results
+## Implementation and Results
 
-### Letter "N" Formation
+### Python Simulation Results
 
-![N Letter - Cube Arrangement Sequence 1](N_letter_gifs/1_home_to_cube1_path.npy_visualization.gif)
+**Letter "N" Formation - Python Simulation:**
 
-*Motion 1: Robot approaches first cube from home position*
+![N Letter - Python Simulation Example](N_letter_gifs/2_cube1_to_cube1goal_path.npy_visualization.gif)
 
-![N Letter - Cube Placement 1](N_letter_gifs/2_cube1_to_cube1goal_path.npy_visualization.gif)
+*Python-based RRT* planning simulation: The robot arm manipulates the first cube from its initial position to the target location for the letter "N". This simulation demonstrates the path planning algorithm working in a virtual environment.*
 
-*Motion 2: Transport and place first cube at destination*
+**Letter "O" Formation - Python Simulation:**
 
-![N Letter - Cube Arrangement Sequence 2](N_letter_gifs/3_cube1goal_to_cube2_path.npy_visualization.gif)
+![O Letter - Python Simulation Example](O_letter_gifs/4_cube2_to_cube2goal_path.npy_visualization.gif)
 
-*Motion 3: Return to home and approach second cube*
+*Python-based RRT* planning simulation: The robot arm moves a cube to its designated position in the "O" formation. The simulation validates collision-free paths and optimal trajectories before real-world implementation.*
 
-![N Letter - Cube Placement 2](N_letter_gifs/4_cube2_to_cube2goal_path.npy_visualization.gif)
+### Real Experiment Implementation
 
-*Motion 4: Transport second cube to its position in the "N" formation*
+**Physical Hardware Demonstration:**
 
-![N Letter - Cube Arrangement Sequence 3](N_letter_gifs/5_cube2goal_to_cube3_path.npy_visualization.gif)
+The UR5e robotic arm was deployed in a real laboratory environment to physically execute the cube rearrangement task. This real-world implementation validated the effectiveness of the motion planning algorithms developed in Python simulation.
 
-*Motion 5: Continue sequence to third cube*
+**Real Experiment Video:**
 
-![N Letter - Cube Placement 3](N_letter_gifs/6_cube3_to_cube3goal_path.npy_visualization.gif)
+*Coming Soon: Real robot performing cube rearrangement to form letters "N" and "O"*
 
-*Motion 6: Place third cube*
-
-![N Letter - Cube Arrangement Sequence 4](N_letter_gifs/7_cube3goal_to_cube4_path.npy_visualization.gif)
-
-*Motion 7: Approach fourth cube*
-
-![N Letter - Cube Placement 4](N_letter_gifs/8_cube4_to_cube4goal_path.npy_visualization.gif)
-
-*Motion 8: Place fourth cube to complete N structure*
-
-### Letter "O" Formation
-
-![O Letter - Cube Arrangement Sequence 1](O_letter_gifs/1_home_to_cube1_path.npy_visualization.gif)
-
-*Motion 1: Robot approaches first cube from home position*
-
-![O Letter - Cube Placement 1](O_letter_gifs/2_cube1_to_cube1goal_path.npy_visualization.gif)
-
-*Motion 2: Transport and place first cube at destination*
-
-![O Letter - Cube Arrangement Sequence 2](O_letter_gifs/3_cube1goal_to_cube2_path.npy_visualization.gif)
-
-*Motion 3: Continue to second cube*
-
-![O Letter - Cube Placement 2](O_letter_gifs/4_cube2_to_cube2goal_path.npy_visualization.gif)
-
-*Motion 4: Place second cube*
-
-![O Letter - Cube Arrangement Sequence 3](O_letter_gifs/5_cube2goal_to_cube3_path.npy_visualization.gif)
-
-*Motion 5: Approach third cube*
-
-![O Letter - Cube Placement 3](O_letter_gifs/6_cube3_to_cube3goal_path.npy_visualization.gif)
-
-*Motion 6: Place third cube*
+The real experiment demonstrated:
+- Successful transfer from simulation to physical hardware
+- Actual robot-cube interactions and grasp dynamics
+- Real-world collision avoidance and obstacle navigation
+- Physical constraints and workspace limitations
 
 ---
 
