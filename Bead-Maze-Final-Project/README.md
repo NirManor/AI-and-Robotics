@@ -152,13 +152,13 @@ The algorithm was further validated through real-world simulation where the UR5e
 
 ![Real Simulation - UR5e Path Following](real_simulation.gif)
 
-*Real simulation showing the UR5e robot arm executing the path-following task. In this implementation, the end-effector gripper holds an improvised pointer tool (developed in the laboratory) that pushes a bead along the bead maze path. Unlike the task-space trajectory planning approach, this demonstrates the practical application where the robot maintains contact with the bead via the pointer, successfully following the desired 3D path.*
+*Real simulation showing the UR5e robot arm executing the path-following task. In this implementation, the end-effector gripper holds an improvised pointer tool (developed in the laboratory). The robot ensures the pointer stays close enough to the bead maze path (without colliding) such that if a bead were present on the path, the pointer would push it along the maze. This demonstrates the practical application of the trajectory-following algorithm.*
 
 **Real Simulation Observations:**
-- End-effector gripper holds pointer tool to maintain contact with bead
-- Pointer effectively extends the end-effector's ability to push and guide the bead
-- Robot successfully follows the 3D path while maintaining bead contact
-- Demonstrates practical viability of trajectory-following approach
+- End-effector gripper holds pointer tool positioned along the maze path
+- Pointer maintains safe distance from maze path (no collisions)
+- Robot trajectory ensures pointer would contact and push any bead present
+- Successfully demonstrates trajectory-following algorithm in practice
 
 ---
 
