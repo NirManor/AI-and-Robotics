@@ -1,26 +1,129 @@
-# Complex Motion Planning Tasks
+# Complex Motion Planning Tasks - Cube Rearrangement for Letter Formation
 
-Advanced motion planning for realistic robotic manipulation scenarios including multi-target navigation, constrained motion, and task-specific optimization.
+Advanced motion planning for robotic manipulation: arranging six cubes to form the initials "N" and "O" using a UR5e robotic arm.
 
 ## Problem Description
 
-**Objective:** Address real-world motion planning challenges beyond basic point-to-point navigation:
-- Multi-target sequential planning
-- Motion under kinematic constraints
-- Task-coordinated planning
-- Complex obstacle scenarios
+**Objective:** Utilize a UR5e collaborative robotic arm to physically rearrange six cubes within a simulated environment to form the letters "N" and "O" - representing the initials of the team members (Nir Manor and Ortal Cohen).
 
-**Application Domains:**
-- Industrial pick-and-place operations
-- Assembly tasks
-- Inspection routes
-- Collaborative manipulation
+**Mission Overview:**
+- **Task:** Rearrange 6 randomly-distributed cubes into specific positions
+- **Goal Configurations:**
+  - Letter "N": 4 cubes arranged with 1 additional pre-placed cube
+  - Letter "O": 6 cubes arranged in a circular/rectangular pattern
+- **Robot:** UR5e Collaborative Manipulator (6-DOF)
+- **Environment:** Simulated workspace with obstacles and spatial constraints
 
-**Challenges:**
-- High-dimensional configuration space
-- Complex constraint interactions
-- Competing objectives
-- Real-time performance requirements
+**Key Challenges:**
+- **Multi-target Manipulation:** Pick and place 6 objects sequentially
+- **Dynamic Environment:** Cube positions change after each placement
+- **Collision Avoidance:** Navigate around obstacles while holding objects
+- **Precision Placement:** Accurate positioning of cubes at target locations
+- **Grasp Planning:** Determine optimal approach angles for cube manipulation
+- **Path Continuity:** Ensure smooth transitions between pickup and placement
+
+---
+
+## Solution Approach
+
+### Motion Planning Strategy
+
+**Trajectory Planning with RRT***
+
+The solution employs an advanced motion planning approach using RRT* (Rapidly-Exploring Random Trees with rewiring optimization):
+
+**Key Enhancements:**
+
+1. **Adaptive Pathfinding:**
+   - RRT* search resets if no path found within iteration limit
+   - Prevents prolonged computation on infeasible paths
+   - Ensures efficient navigation through complex workspaces
+
+2. **Dynamic Environment Handling:**
+   - Algorithm continuously updates with cube displacement information
+   - Maintains path validity as environment changes
+   - Recomputes paths when new cube placements affect workspace
+
+3. **Sequential Manipulation Sequence:**
+   ```
+   Home Position
+   → Home to Cube 1
+   → Cube 1 to Destination 1
+   → Return to Home
+   → Home to Cube 2
+   → Cube 2 to Destination 2
+   ... (repeat for all 6 cubes)
+   → Final Return to Home
+   ```
+
+**Collision-Aware Planning:**
+- Robot continuously checks for collisions during path execution
+- Accounts for held cube's size when planning around obstacles
+- Generates collision-free paths in 6D configuration space
+
+---
+
+## Letter Formation Results
+
+### Letter "N" Formation
+
+![N Letter - Cube Arrangement Sequence 1](N_letter_gifs/1_home_to_cube1_path.npy_visualization.gif)
+
+*Motion 1: Robot approaches first cube from home position*
+
+![N Letter - Cube Placement 1](N_letter_gifs/2_cube1_to_cube1goal_path.npy_visualization.gif)
+
+*Motion 2: Transport and place first cube at destination*
+
+![N Letter - Cube Arrangement Sequence 2](N_letter_gifs/3_cube1goal_to_cube2_path.npy_visualization.gif)
+
+*Motion 3: Return to home and approach second cube*
+
+![N Letter - Cube Placement 2](N_letter_gifs/4_cube2_to_cube2goal_path.npy_visualization.gif)
+
+*Motion 4: Transport second cube to its position in the "N" formation*
+
+![N Letter - Cube Arrangement Sequence 3](N_letter_gifs/5_cube2goal_to_cube3_path.npy_visualization.gif)
+
+*Motion 5: Continue sequence to third cube*
+
+![N Letter - Cube Placement 3](N_letter_gifs/6_cube3_to_cube3goal_path.npy_visualization.gif)
+
+*Motion 6: Place third cube*
+
+![N Letter - Cube Arrangement Sequence 4](N_letter_gifs/7_cube3goal_to_cube4_path.npy_visualization.gif)
+
+*Motion 7: Approach fourth cube*
+
+![N Letter - Cube Placement 4](N_letter_gifs/8_cube4_to_cube4goal_path.npy_visualization.gif)
+
+*Motion 8: Place fourth cube to complete N structure*
+
+### Letter "O" Formation
+
+![O Letter - Cube Arrangement Sequence 1](O_letter_gifs/1_home_to_cube1_path.npy_visualization.gif)
+
+*Motion 1: Robot approaches first cube from home position*
+
+![O Letter - Cube Placement 1](O_letter_gifs/2_cube1_to_cube1goal_path.npy_visualization.gif)
+
+*Motion 2: Transport and place first cube at destination*
+
+![O Letter - Cube Arrangement Sequence 2](O_letter_gifs/3_cube1goal_to_cube2_path.npy_visualization.gif)
+
+*Motion 3: Continue to second cube*
+
+![O Letter - Cube Placement 2](O_letter_gifs/4_cube2_to_cube2goal_path.npy_visualization.gif)
+
+*Motion 4: Place second cube*
+
+![O Letter - Cube Arrangement Sequence 3](O_letter_gifs/5_cube2goal_to_cube3_path.npy_visualization.gif)
+
+*Motion 5: Approach third cube*
+
+![O Letter - Cube Placement 3](O_letter_gifs/6_cube3_to_cube3goal_path.npy_visualization.gif)
+
+*Motion 6: Place third cube*
 
 ---
 
@@ -397,31 +500,59 @@ def compute_task_cost(path, task_params):
 
 ---
 
-## Experimental Results
+## Experimental Results and Findings
 
-### Multi-Target Planning
+### Mission Success
 
-**3-Target Task:**
-- Average planning time: 5-10 seconds
-- Success rate: >95%
-- Path cost: 15-25% longer than optimal
+**Achievement:**
+The implementation successfully demonstrated the UR5e robot's ability to rearrange six cubes according to desired destinations, forming the letters "N" and "O" within the simulated environment.
 
-**5-Target Task:**
-- Average planning time: 15-30 seconds
-- Success rate: 85-90%
-- Path cost: 20-35% longer than optimal
+**Performance Characteristics:**
 
-### Constrained Motion
+1. **Multi-Target Manipulation (6 Cubes):**
+   - Sequential pick-and-place operations executed successfully
+   - Adaptive RRT* algorithm efficiently handled path resets
+   - Dynamic environment handling adjusted to cube displacement
 
-**Orientation Constraints:**
-- Planning time: +50-100% vs unconstrained
-- Success rate: 80-90% (depends on constraint tightness)
-- Paths may be infeasible with tight constraints
+2. **Collision Avoidance:**
+   - Robot maintained obstacle clearance during manipulation
+   - Paths computed in 6D configuration space
+   - Collision detection active throughout manipulation sequences
 
-**Workspace Constraints:**
-- Planning time: similar to unconstrained
-- Success rate: >95%
-- Forces exploration around constraint boundaries
+### Challenges and Lessons Learned
+
+**1. Grasp-Induced Collisions:**
+- The robot arm approached collision with obstacles when grasping cubes
+- Root cause: cube positioning after end-effector contact increased effective size
+- **Solution:** Represent workspace cubes with safety inflation (slightly larger radii)
+- **Enhancement:** Enlarge grasped cube representation to reduce collision likelihood
+
+**2. Placement Accuracy:**
+- Cubes dropped from 10 cm height did not land at exact target positions
+- Reason: Physics simulation of cube drop not considered in path planning
+- **Lesson:** Real-world manipulation requires accounting for object dynamics and settling effects
+
+3. **Path Planning Efficiency:**
+- Adaptive pathfinding proved effective for multi-object scenarios
+- RRT* successfully navigated changing workspace configurations
+- Reset mechanism prevented computational stalling on infeasible subproblems
+
+### Future Improvements
+
+1. **Enhanced Collision Modeling:**
+   - Increase collision sphere inflation for grasped objects
+   - Model object dynamics during drop phase
+   - Implement grasp stability analysis
+
+2. **Precision Enhancement:**
+   - Account for physics during cube placement
+   - Add settling time before re-planning next movement
+   - Implement feedback correction after placement
+
+3. **Algorithm Optimization:**
+   - Adaptive goal-biasing based on task progress
+   - Predictive path planning for multi-cube sequences
+   - Learning-based cost function tuning from experience
 
 ---
 
