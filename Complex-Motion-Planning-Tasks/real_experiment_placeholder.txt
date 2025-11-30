@@ -1,0 +1,11 @@
+PLACEHOLDER FOR REAL EXPERIMENT GIF
+
+Please add the real experiment GIF file (real_experiment.gif) showing the UR5e robotic arm 
+physically rearranging wooden cubes in the laboratory to this directory.
+
+This should demonstrate:
+- Physical hardware implementation of the cube rearrangement task
+- Real UR5e robot arm manipulating wooden cubes
+- Actual workspace with laboratory setup
+
+The file can be a video recording converted to GIF format showing the robot in action.
