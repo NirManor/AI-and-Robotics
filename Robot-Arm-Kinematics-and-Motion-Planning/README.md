@@ -92,6 +92,16 @@ Where Ti is the homogeneous transformation from frame i-1 to frame i.
 - Spheres have center positions and radii
 - Efficient collision checking with workspace obstacles
 
+![UR5e Collision Sphere Model](image_1_page3.png)
+
+The UR5e robot arm represented as collision spheres: red spheres approximate the arm structure (upper arm and forearm), green spheres represent the wrist mechanism, and yellow spheres represent the gripper base.
+
+**Robot Link Coordinate Frame:**
+
+![UR5e Link Coordinate System](image_2_page4.png)
+
+The coordinate frame system defines the spatial relationships between robot links. Each link (base_link, shoulder_link, upper_arm_link, forearm_link, wrist joints) has its own frame for precise transformation calculations.
+
 **Sphere Parameters:**
 ```
 Link Sphere Radius (inflated by safety factor)
@@ -130,6 +140,12 @@ for i in 0 to num_steps:
         return False
 return True
 ```
+
+**Collision-Free vs. Collision States:**
+
+![2D Collision Detection Example](image_3_page4.png)
+
+Visualization of a 2D robotic arm showing two configurations: on the left, a collision-free configuration where the arm avoids the environment obstacles, and on the right, a configuration in collision with the wall. The spheres along the arm represent collision geometry used for detection.
 
 **Key Parameters:**
 - **Resolution:** Step size for path discretization
@@ -276,6 +292,16 @@ if cost_via_new < cost_via_current:
 ## Experimental Results
 
 ### Test Scenarios
+
+**3D Workspace Visualization with Obstacles:**
+
+![3D Collision Detection Example 1](image_4_page5.png)
+
+First 3D workspace scenario showing the robot arm represented by colored spheres (red obstacle region, blue/purple and yellow robot links) navigating through a constrained environment. The grid represents the workspace boundaries.
+
+![3D Collision Detection Example 2](image_5_page5.png)
+
+Second 3D scenario with different robot configuration and obstacle placement, demonstrating how the collision detection algorithm validates whether configurations are feasible in the 3D workspace.
 
 **Scenario 1: Obstacle-Free Environment**
 - Workspace with no obstacles
