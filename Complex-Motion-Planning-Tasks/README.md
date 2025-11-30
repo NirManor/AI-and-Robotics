@@ -81,13 +81,13 @@ The solution employs an advanced motion planning approach using RRT* (Rapidly-Ex
 
 ### Real Experiment Implementation
 
-**Physical Hardware Demonstration:**
+**Physical Hardware Demonstration - Letter "O" Formation:**
 
-The UR5e robotic arm was deployed in a real laboratory environment to physically execute the cube rearrangement task. This real-world implementation validated the effectiveness of the motion planning algorithms developed in Python simulation.
+The UR5e robotic arm was deployed in a real laboratory environment to physically execute the cube rearrangement task for the letter "O" formation. This real-world implementation validated the effectiveness of the motion planning algorithms developed in Python simulation.
 
-![Real Experiment - UR5e Cube Rearrangement](real_experiment.gif)
+![Real Experiment - UR5e Cube Rearrangement (O Letter)](real_experiment.gif)
 
-*Physical robot performing cube rearrangement: The UR5e collaborative robot arm manipulates wooden cubes on a laboratory table, demonstrating the successful transfer of simulation-based planning algorithms to real hardware execution.*
+*Physical robot performing cube rearrangement for the "O" letter: The UR5e collaborative robot arm manipulates wooden cubes on a laboratory table, demonstrating the successful transfer of simulation-based planning algorithms to real hardware execution.*
 
 **Key Real-World Validation Points:**
 - Successful transfer from simulation to physical hardware
@@ -95,6 +95,7 @@ The UR5e robotic arm was deployed in a real laboratory environment to physically
 - Real-world collision avoidance and obstacle navigation
 - Physical constraints and workspace limitations
 - Practical deployment in laboratory environment
+- Real cube material properties and friction effects
 
 ---
 
